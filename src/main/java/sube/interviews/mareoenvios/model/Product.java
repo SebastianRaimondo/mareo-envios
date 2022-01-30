@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -30,7 +31,7 @@ public class Product implements Serializable {
 	@Column(length = 10)
 	private double weight;
 	
-	@JsonManagedReference
+	@JsonBackReference
 	@OneToMany(mappedBy = "product")
 	private List<ShippingItem> shippingItems;
 	

@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="Shipping_item")
@@ -25,8 +26,7 @@ public class ShippingItem implements Serializable {
 
 	@Column(length = 10)
 	private Long productCount;
-	
-	@JsonBackReference
+	@JsonManagedReference
 	@ManyToOne
 	private Product product;
 	

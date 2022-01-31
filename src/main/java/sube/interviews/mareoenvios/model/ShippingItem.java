@@ -26,6 +26,9 @@ public class ShippingItem implements Serializable {
 
 	@Column(length = 10)
 	private Long productCount;
+	
+	
+	
 	@JsonManagedReference
 	@ManyToOne
 	private Product product;

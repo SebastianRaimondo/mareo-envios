@@ -1,14 +1,15 @@
 package sube.interviews.mareoenvios.Dto;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 import sube.interviews.mareoenvios.model.Customer;
 import sube.interviews.mareoenvios.model.ShippingItem;
 
-public class ShippingDto {
+public class ShippingDto implements Serializable{
 	
-	
+	private static final long serialVersionUID = 1L;
 	private Long id;
 	private String state;
 	private Customer customer;

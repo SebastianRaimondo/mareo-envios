@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -30,12 +29,15 @@ public class Shipping implements Serializable{
 	@Column(length = 50)
 	private String state;
 	
-	@JsonBackReference
+	
     @ManyToOne
+    @JsonBackReference
 	private Customer customer;
 	
-	@JsonManagedReference
+
+
     @OneToMany(mappedBy = "shipping")
+    @JsonManagedReference
 	private List<ShippingItem> shippingItems;
 	
 	@Column

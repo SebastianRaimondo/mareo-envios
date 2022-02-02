@@ -2,8 +2,10 @@ package sube.interviews.mareoenvios.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import sube.interviews.mareoenvios.model.Customer;
+import sube.interviews.mareoenvios.Dto.CustomerDto;
+import sube.interviews.mareoenvios.DtoMapper.CustomerMapper;
 import sube.interviews.mareoenvios.repository.CustomerRepositoryInterface;
 
 @Service
@@ -12,11 +14,13 @@ public class CustomerService {
 	@Autowired
 	private CustomerRepositoryInterface customerRepository;
 	
+	@Autowired
+	private CustomerMapper cM;
 	
-	
-	public Customer getCustomer(Long id) {
+	@Transactional(readOnly  = true)
+	public CustomerDto getCustomer(Long id) {
 		
-		return this.customerRepository.findById(id).orElse(null);
+		return this.cM.customerToCustomerDto(this.customerRepository.findById(id).orElse(null));
 	}
 
 }

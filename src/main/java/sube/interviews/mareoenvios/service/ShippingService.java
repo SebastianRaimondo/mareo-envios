@@ -1,12 +1,11 @@
 package sube.interviews.mareoenvios.service;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import sube.interviews.mareoenvios.model.Shipping;
+import sube.interviews.mareoenvios.Dto.ShippingDto;
+import sube.interviews.mareoenvios.DtoMapper.ShippingMapper;
 import sube.interviews.mareoenvios.model.Status;
 import sube.interviews.mareoenvios.repository.ShippingRepositoryInterface;
 
@@ -16,74 +15,78 @@ public class ShippingService {
 	@Autowired
 	private ShippingRepositoryInterface shippingRepository;
 	
-    @Transactional(readOnly  = true)
-	public Shipping getShipping(Long shippingId) {
+	@Autowired
+	private ShippingMapper sM;
 	
-		return this.shippingRepository.findById(shippingId).orElse(null);
+    @Transactional(readOnly  = true)
+	public ShippingDto getShipping(Long shippingId) {
+	
+		return this.sM.shippingToShippingDto(this.shippingRepository.findById(shippingId).orElse(null));
 	}
 	
     @Transactional
-	public Shipping sendToMail (Long shippingId) {
+	public ShippingDto sendToMail (Long shippingId) {
 		
 
-		Shipping shipping = this.getShipping(shippingId);
+		ShippingDto shippingDto = this.getShipping(shippingId);
 		
-		if(shipping != null && shipping.getState().equals("Inicial")) {
+		if(shippingDto != null && shippingDto.getState().equals("Inicial")) {
 			
-			shipping.setState(Status.SEND_TO_MAIL);
-			this.shippingRepository.saveAndFlush(shipping);
+			shippingDto.setState(Status.SEND_TO_MAIL);
+			
+	        this.shippingRepository.saveAndFlush(this.sM.shippingDtoToShipping(shippingDto));
 		}
 		
-		return shipping;
+		return shippingDto;
 		
 	}
     
     
     @Transactional
-  	public Shipping inTravel (Long shippingId) {
+  	public ShippingDto inTravel (Long shippingId) {
   		
 
-  		Shipping shipping = this.getShipping(shippingId);
+    	ShippingDto shippingDto = this.getShipping(shippingId);
   		
-  		if(shipping != null && shipping.getState().equals("Entregado al correo")) {
+  		if(shippingDto != null && shippingDto.getState().equals("Entregado al correo")) {
   			
-  			shipping.setState(Status.IN_TRAVEL);
-  			this.shippingRepository.saveAndFlush(shipping);
+  			shippingDto.setState(Status.IN_TRAVEL);
+  			this.shippingRepository.saveAndFlush(this.sM.shippingDtoToShipping(shippingDto));
   		}
   		
-  		return shipping;
+  		return shippingDto;
   		
   	}
       
     @Transactional
-  	public Shipping delivered (Long shippingId) {
+  	public ShippingDto delivered (Long shippingId) {
   		
 
-  		Shipping shipping = this.getShipping(shippingId);
+    	ShippingDto shippingDto = this.getShipping(shippingId);
   		
-  		if(shipping != null && shipping.getState().equals("En camino")) {
+  		if(shippingDto != null && shippingDto.getState().equals("En camino")) {
   			
-  			shipping.setState(Status.DELIVERED);
-  			this.shippingRepository.saveAndFlush(shipping);
+  			shippingDto.setState(Status.DELIVERED);
+  			this.shippingRepository.saveAndFlush(this.sM.shippingDtoToShipping(shippingDto));
   		}
   		
-  		return shipping;
+  		return shippingDto;
   		
   	}
     
     @Transactional
-  	public Shipping cancelled (Long shippingId) {
+  	public ShippingDto cancelled (Long shippingId) {
   		
 
-  		Shipping shipping = this.getShipping(shippingId);
+    	ShippingDto shippingDto = this.getShipping(shippingId);
   		
-  		if(shipping != null && shipping.getState().equals("Inicial")) {
+  		if(shippingDto != null && shippingDto.getState().equals("Inicial")) {
   			
-  			shipping.setState(Status.CANCELLED);
-  			this.shippingRepository.saveAndFlush(shipping);
+  			shippingDto.setState(Status.CANCELLED);
+  			this.shippingRepository.saveAndFlush(this.sM.shippingDtoToShipping(shippingDto));
   		}
   		
-  		return shipping;
+  		return shippingDto;
   		
   	}
     

@@ -23,11 +23,11 @@ public class Customer implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(length = 50, name = "first_name")
+	@Column(length = 50)
 	private String firstName;
 	
 	@Column(length = 50)
-	private String last_name;
+	private String lastName;
 	
 	@Column(length = 50)
 	private String address;
@@ -36,8 +36,9 @@ public class Customer implements Serializable {
 	@Column(length = 50)
 	private String city;
 	
-	@JsonManagedReference
+	
 	@OneToMany(mappedBy = "customer")
+	@JsonManagedReference
 	private List<Shipping> shippings;
 	
 	public Long getId() {
@@ -52,16 +53,17 @@ public class Customer implements Serializable {
 		return firstName;
 	}
 
-	public void setFirstName(String first_name) {
-		this.firstName = first_name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getLast_name() {
-		return last_name;
+
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLast_name(String last_name) {
-		this.last_name = last_name;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getAddress() {

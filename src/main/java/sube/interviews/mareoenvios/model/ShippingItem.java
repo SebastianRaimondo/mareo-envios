@@ -29,12 +29,14 @@ public class ShippingItem implements Serializable {
 	
 	
 	
-	@JsonManagedReference
+	@JsonBackReference
 	@ManyToOne
 	private Product product;
 	
-	@JsonBackReference
+
+	
 	@ManyToOne
+	@JsonBackReference
 	private Shipping shipping;
 	
 

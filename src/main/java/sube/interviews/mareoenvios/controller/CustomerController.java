@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import sube.interviews.mareoenvios.model.Customer;
+import sube.interviews.mareoenvios.Dto.CustomerDto;
 import sube.interviews.mareoenvios.service.CustomerService;
 
 @RestController
@@ -20,12 +20,11 @@ public class CustomerController {
 	
 	
 	@GetMapping("/info/{customerId}")
-	public ResponseEntity<Customer> getCustomer(@PathVariable Long customerId){
+	public ResponseEntity<CustomerDto> getCustomer(@PathVariable Long customerId){
 		
+		CustomerDto customerDto = this.customerService.getCustomer(customerId);
 		
-		Customer customer = this.customerService.getCustomer(customerId);
-		
-		return new ResponseEntity<Customer>(customer, HttpStatus.OK);
+		return new ResponseEntity<CustomerDto>(customerDto, HttpStatus.OK);
 	}
 	
 
